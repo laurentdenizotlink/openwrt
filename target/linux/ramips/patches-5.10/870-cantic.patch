@@ -370,3 +370,33 @@
 +MODULE_AUTHOR("Laurent Denizot <laurent@denizot.link>");
 +MODULE_DESCRIPTION("PT2259 ALSA SoC Codec Driver");
 +MODULE_LICENSE("GPL");
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -73,6 +73,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_CS43130
+ 	imply SND_SOC_CS4341
+ 	imply SND_SOC_CS4349
++	imply SND_SOC_PT2259
+ 	imply SND_SOC_CS47L15
+ 	imply SND_SOC_CS47L24
+ 	imply SND_SOC_CS47L35
+@@ -657,6 +658,10 @@ config SND_SOC_CS4349
+ 	tristate "Cirrus Logic CS4349 CODEC"
+ 	depends on I2C
+ 
++config SND_SOC_PT2259
++        tristate "PRINCETON PT2259 CODEC / CANTIC"
++        depends on I2C
++
+ config SND_SOC_CS47L15
+ 	tristate
+ 	depends on MFD_CS47L15
+@@ -1007,7 +1012,7 @@ config SND_SOC_PCM3168A_SPI
+ 	select REGMAP_SPI
+ 
+ config SND_SOC_PCM5102A
+-	tristate
++	tristate "TI PCM 5012A / CANTIC PLAY"
+ 
+ config SND_SOC_PCM512x
+ 	tristate
