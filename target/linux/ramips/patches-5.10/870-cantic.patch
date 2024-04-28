@@ -18,7 +18,7 @@
  obj-$(CONFIG_SND_SOC_PCM512x_SPI)	+= snd-soc-pcm512x-spi.o
 --- /dev/null
 +++ b/sound/soc/codecs/pt2259.c
-@@ -0,0 +1,351 @@
+@@ -0,0 +1,352 @@
 +/*
 + * pt2259.c  --  PT2259 ALSA Soc Audio driver
 + *
@@ -217,7 +217,7 @@
 +        return 0;
 +}
 +
-+static int pt2259_digital_mute(struct snd_soc_dai *dai, int mute)
++static int pt2259_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
 +{
 +	//struct snd_soc_codec *codec = dai->codec;
 +	//int reg;
@@ -256,7 +256,7 @@
 +static const struct snd_soc_dai_ops pt2259_dai_ops = {
 +	.hw_params      = pt2259_pcm_hw_params,
 +	.set_fmt        = pt2259_set_dai_fmt,
-+	.digital_mute	= pt2259_digital_mute,
++	//.digital_mute	= pt2259_digital_mute,
 +};
 +
 +static struct snd_soc_dai_driver pt2259_dai = {
@@ -332,9 +332,10 @@
 +static int pt2259_i2c_remove(struct i2c_client *client)
 +{
 +	struct pt2259_private *pt2259 = i2c_get_clientdata(client);
-+	devm_kfree(&client->dev, pt2259);
 +
-+	snd_soc_unregister_codec(&client->dev);
++	snd_soc_unregister_component(&client->dev);
++
++	devm_kfree(&client->dev, pt2259);
 +
 +	/* Hold down reset */
 +
